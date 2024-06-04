@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("clicked");
         // Check for mouse click to hide the dialogue
         if (Input.GetMouseButtonDown(0) && dialogueVisible) // 0 represents the left mouse button
         {
+            Debug.Log("clicked dialogue");
             dialogueManager.HideDialogue();
             dialogueVisible = false; // Update the flag
             if (!missionStarted) // Check if the mission hasn't been started yet
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
                 missionManager.StartDialogue();
                 StartCoroutine(Mission1()); // Start the coroutine to handle the mission
             }
+
         }
     }
 
@@ -114,6 +117,24 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f); // Delay for 2 seconds
         missionManager.StartDialogue(); 
+    }
+
+    public void StartDialogueFromOther()
+    {
+        // Call StartDialogue() directly on dialogueManager
+        
+        Invoke("StartOtherDialogue", 4f);
+    }
+
+    void StartOtherDialogue()
+    {
+        dialogueManager.StartDialogue();
+        dialogueVisible = true;
+        Invoke("StartOtherMission", 4f);
+    }
+    void StartOtherMission()
+    {
+        missionManager.StartDialogue();
     }
 }
 

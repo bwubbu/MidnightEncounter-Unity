@@ -18,7 +18,7 @@ public class DialogueManager : MonoBehaviour
         dialogueLines.Enqueue("My classroom just now is classroom 1.");
         dialogueLines.Enqueue("Noo.. the door is locked! I need to find the key somewhere.");
         dialogueLines.Enqueue("Got it! Now lets get my backpack.");
-        dialogueLines.Enqueue("What was that.. and why my backpack is not her!");
+        dialogueLines.Enqueue("What was that.. and why I don't see my backpack here!");
     }
 
 

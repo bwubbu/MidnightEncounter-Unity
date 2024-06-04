@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class LandMine : MonoBehaviour
 {
-    public DialogueManager dialogueManager;
-    public MissionManager missionManager;
+    public GameManager gameManager;
     public AudioClip explosionSound; // Assign your explosion sound in the inspector
     private AudioSource audioSource;
     public GameObject flickeringLight;
+    private bool dialogueVisible = true;
 
     public GameObject Statue;
 
@@ -25,9 +25,15 @@ public class LandMine : MonoBehaviour
     // This method is called when another collider enters the trigger zone
     void OnTriggerEnter(Collider other)
     {
+        
         // Check if the collider belongs to the player
         if (other.CompareTag("Player"))
         {
+            Collider collider = GetComponent<Collider>();
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
             Statue.SetActive(true);
             if (flickeringLight != null)
             {
@@ -38,10 +44,9 @@ public class LandMine : MonoBehaviour
             {
                 audioSource.PlayOneShot(explosionSound);
                 // Delay the destruction by the length of the sound clip
-                Destroy(Statue,explosionSound.length);
+                Destroy(Statue,2f);
                 Destroy(flickeringLight,explosionSound.length);
-                Destroy(gameObject, explosionSound.length);
-                StartCoroutine(DelayedExecution());
+                gameManager.StartDialogueFromOther();
 
             }
             else
@@ -50,16 +55,5 @@ public class LandMine : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
-    IEnumerator DelayedExecution()
-    {
-        // Wait for 2 seconds
-        yield return new WaitForSeconds(6f);
-
-        dialogueManager.StartDialogue();
-
-        Destroy(dialogueManager);
-        yield return new WaitForSeconds(3f);
-        missionManager.StartDialogue();
     }
 }

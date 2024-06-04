@@ -206,7 +206,19 @@ public class BreakableWindow : MonoBehaviour {
                 {
                     for (int i = 0; i < splinters.Count; i++)
                     {
-                        splinters[i].GetComponent<Rigidbody>().AddTorque(new Vector3(Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
+                        // Check if the splinter has a Rigidbody component
+                        Rigidbody rb = splinters[i].GetComponent<Rigidbody>();
+                        if (rb == null)
+                        {
+                            // If not, add a Rigidbody component
+                            rb = splinters[i].AddComponent<Rigidbody>();
+                        }
+
+                        // Add torque to the Rigidbody
+                        rb.AddTorque(new Vector3(
+                            Random.value > 0.5f ? Random.value * 50 : -Random.value * 50,
+                            Random.value > 0.5f ? Random.value * 50 : -Random.value * 50,
+                            Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
                     }
                 }
             }
@@ -232,6 +244,7 @@ public class BreakableWindow : MonoBehaviour {
 
         return splinters.ToArray();
     }
+
 
 
     void OnCollisionEnter(Collision col)
