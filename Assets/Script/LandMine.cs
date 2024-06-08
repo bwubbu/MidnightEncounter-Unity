@@ -7,6 +7,7 @@ public class LandMine : MonoBehaviour
     public AudioClip explosionSound; // Assign your explosion sound in the inspector
     private AudioSource audioSource;
     public GameObject flickeringLight;
+    public GameObject monster;
     private bool dialogueVisible = true;
 
     public GameObject Statue;
@@ -47,6 +48,7 @@ public class LandMine : MonoBehaviour
                 Destroy(Statue,2f);
                 Destroy(flickeringLight,explosionSound.length);
                 gameManager.StartDialogueFromOther();
+                monster.SetActive(true);
 
             }
             else

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     private float idleTimer = 0f;
-    private Transform player;
+    public Transform player;
     private AudioSource audioSource;
 
     private enum EnemyState { Idle, Walk, Chase }
