@@ -27,6 +27,7 @@ public class LandMine : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         
+        
         // Check if the collider belongs to the player
         if (other.CompareTag("Player"))
         {
@@ -45,6 +46,7 @@ public class LandMine : MonoBehaviour
             {
                 audioSource.PlayOneShot(explosionSound);
                 // Delay the destruction by the length of the sound clip
+                Destroy(Statue,2f);
                 Destroy(Statue,2f);
                 Destroy(flickeringLight,explosionSound.length);
                 gameManager.StartDialogueFromOther();
