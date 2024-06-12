@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("clicked");
         // Check for mouse click to hide the dialogue
         if (Input.GetMouseButtonDown(0) && dialogueVisible) // 0 represents the left mouse button
         {

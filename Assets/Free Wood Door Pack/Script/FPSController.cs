@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace CharacterScript
 {
     [RequireComponent(typeof(CharacterController))]
@@ -24,6 +23,8 @@ namespace CharacterScript
         [HideInInspector]
         public bool canMove = true;
 
+        private CameraLock cameraLock; // Reference to the CameraLock component
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
@@ -31,10 +32,25 @@ namespace CharacterScript
             // Lock cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            // Get reference to the CameraLock component
+            cameraLock = playerCamera.GetComponent<CameraLock>();
         }
 
         void Update()
         {
+            // Check if camera is locked before allowing movement
+            if (cameraLock != null && cameraLock.IsCameraLocked())
+            {
+                // Camera is locked, disable movement
+                canMove = false;
+            }
+            else
+            {
+                // Camera is not locked, enable movement
+                canMove = true;
+            }
+
             // We are grounded, so recalculate move direction based on axes
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 right = transform.TransformDirection(Vector3.right);

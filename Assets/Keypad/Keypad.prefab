@@ -2963,7 +2963,6 @@ MonoBehaviour:
   buttonClear: {fileID: 1502116563493832518}
   buttonEnter: {fileID: 9013275104356373157}
   correctCode: 2337
-  door: {fileID: 0}
   mainCamera: {fileID: 0}
 --- !u!1 &7773359874875380204
 GameObject:
@@ -3963,6 +3962,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 79ff813b3aa15024980bf1c9a5de2a55, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 79ff813b3aa15024980bf1c9a5de2a55, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 79ff813b3aa15024980bf1c9a5de2a55, type: 3}
       propertyPath: m_Name

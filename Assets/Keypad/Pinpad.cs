@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PinPad : MonoBehaviour
 {
@@ -18,13 +19,13 @@ public class PinPad : MonoBehaviour
   public GameObject buttonEnter;
 
   public string correctCode = "1234";
-  public DoorScript.PinpadDoor door;
+  //public DoorScript.PinpadDoor door;
   public Camera mainCamera;
 
   void Start()
   {
-    door = GameObject.FindWithTag("PinpadDoor").GetComponent<DoorScript.PinpadDoor>();
-    mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+    //door = GameObject.FindWithTag("PinpadDoor").GetComponent<DoorScript.PinpadDoor>();
+  
   }
 
   public void Button1()
@@ -106,8 +107,7 @@ public class PinPad : MonoBehaviour
     if (displayText.text == correctCode)
     {
       Debug.Log("Correct code entered");
-      door.UnlockDoor();
-      isZoomedOut = true;
+      SceneManager.LoadScene("Outro", LoadSceneMode.Single);
     }
     else
     {

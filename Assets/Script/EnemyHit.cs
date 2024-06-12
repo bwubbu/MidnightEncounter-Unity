@@ -12,6 +12,7 @@ public class EnemyHit : MonoBehaviour
 
     public GameObject canvas; // Reference to the canvas GameObject
     public GameObject[] hearts; // Array to hold references to heart GameObjects
+    public GameObject gameOver;
 
     // Flag to track if the player has been teleported
     private bool hasTeleported = false;
@@ -52,6 +53,12 @@ public class EnemyHit : MonoBehaviour
             {
                 hearts[killedCount - 1].SetActive(false);
             }
+        }
+        else if(player != null && killedCount == 2)
+        {
+            gameOver.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
