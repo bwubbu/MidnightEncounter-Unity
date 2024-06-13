@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PinPad : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class PinPad : MonoBehaviour
   public GameObject button0;
   public GameObject buttonClear;
   public GameObject buttonEnter;
+
+  public GameObject WrongPassword;
+  public GameObject CorrectPassword;
 
   public string correctCode = "1234";
   //public DoorScript.PinpadDoor door;
@@ -107,12 +111,26 @@ public class PinPad : MonoBehaviour
     if (displayText.text == correctCode)
     {
       Debug.Log("Correct code entered");
-      SceneManager.LoadScene("Outro", LoadSceneMode.Single);
+      StartCoroutine(Success());
     }
     else
     {
       Debug.Log("Incorrect code entered");
+      StartCoroutine(EnableWrongPassword());
       ButtonClear();
     }
   }
+  private IEnumerator EnableWrongPassword()
+    {
+        WrongPassword.SetActive(true);
+        yield return new WaitForSeconds(1f); // Wait for 2 seconds
+        WrongPassword.SetActive(false);
+    }
+
+    private IEnumerator Success()
+    {
+        CorrectPassword.SetActive(true);
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        SceneManager.LoadScene("Outro", LoadSceneMode.Single);
+    }
 }

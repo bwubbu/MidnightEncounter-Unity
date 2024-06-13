@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,11 @@ public class EnemyHit : MonoBehaviour
 
     public GameObject Camera;
 
+    public GameObject killedTransition;
+
+    public AudioClip scream;
+    public AudioClip monsterScream;
+
     public int killedCount = 0;
 
     public GameObject canvas; // Reference to the canvas GameObject
@@ -16,6 +22,27 @@ public class EnemyHit : MonoBehaviour
 
     // Flag to track if the player has been teleported
     private bool hasTeleported = false;
+
+    public GameObject audioSourceObject; // Reference to the GameObject that contains the AudioSource
+
+    private AudioSource audioSource; // Reference to AudioSource component
+
+    private void Start()
+    {
+        // Ensure the AudioSource component is attached to the specified GameObject
+        if (audioSourceObject != null)
+        {
+            audioSource = audioSourceObject.GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = audioSourceObject.AddComponent<AudioSource>();
+            }
+        }
+        else
+        {
+            Debug.LogError("AudioSourceObject is not assigned!");
+        }
+    }
 
     // This method is called when another collider enters the trigger zone
     private void OnTriggerEnter(Collider other)
@@ -32,6 +59,8 @@ public class EnemyHit : MonoBehaviour
         if (player != null && respawnPoint != null && killedCount < 2)
         {
             player.transform.position = respawnPoint.transform.position;
+
+            StartCoroutine(EnableKilledTransition());
 
             Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
             if (playerRigidbody == null)
@@ -53,13 +82,32 @@ public class EnemyHit : MonoBehaviour
             {
                 hearts[killedCount - 1].SetActive(false);
             }
+
+            // Play the scream audio
+            StartScream();
         }
-        else if(player != null && killedCount == 2)
+        else if (player != null && killedCount == 2)
         {
             gameOver.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    private void StartScream()
+    {
+        if (audioSource != null && scream != null)
+        {
+            audioSource.clip = scream;
+            audioSource.Play();
+        }
+    }
+
+    private IEnumerator EnableKilledTransition()
+    {
+        killedTransition.SetActive(true);
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        killedTransition.SetActive(false);
     }
 
     private void RemoveRigidbodyFromPlayer()

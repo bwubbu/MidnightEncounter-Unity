@@ -21,7 +21,7 @@ public class MissionManager : MonoBehaviour
         dialogueLines.Enqueue("Go to your class to take your backpack.");
         dialogueLines.Enqueue("Find the key.");
         dialogueLines.Enqueue("Open the door");
-        dialogueLines.Enqueue("Find your backpack and get out from here!");
+        dialogueLines.Enqueue("Get out from the faculty and go home.");
     }
 
     public void StartDialogue()

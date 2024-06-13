@@ -51,6 +51,7 @@ public class KeyPadTrigger : MonoBehaviour
                 {
                     cameraLock.LockCamera(true); // Enable camera lock when 'E' is pressed
                 }
+                Interaction.SetActive(false);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 KeyPadKontrol.SetActive(true);
